@@ -1,6 +1,6 @@
 <template>
   <v-app>
-   <main-content :content="faker"></main-content>
+   <main-content :content="faker.mainContent"></main-content>
   </v-app>
 </template>
 
