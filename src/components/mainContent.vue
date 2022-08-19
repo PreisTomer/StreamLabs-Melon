@@ -101,7 +101,7 @@ export default {
 <style lang="scss" scoped>
 .main_content_container {
   font-size: 12px;
-
+  
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -111,6 +111,7 @@ export default {
     width: 800px;
     height: 450px;
     margin: 32px;
+    
   }
 
   .action_buttons {
@@ -121,7 +122,7 @@ export default {
     padding: 9px;
     .footer_button {
       width: 156px;
-
+  
       font-weight: 700;
       line-height: 14px;
       text-transform: none;
@@ -129,6 +130,7 @@ export default {
       &.selected {
         color: #ffffff;
         background: #128079;
+  
       }
     }
   }

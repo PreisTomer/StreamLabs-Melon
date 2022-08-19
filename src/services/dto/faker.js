@@ -13,7 +13,7 @@ const sideMenu = {
       subtext: 'Screenshare, Camera',
       backgroundImage: '',
       value: 'addMedia',
-      id: '',
+      id: 'default_button',
       type: 'default'
     },
     cameraSource: {
@@ -39,13 +39,28 @@ const addNewMediaModal = {
   title: 'Add a new media source',
   actions: [
     {
-      title: 'ScreenShare',
-      message: 'Share your entire screen, window or a specific Chrome tab'
+      title: 'Screenshare',
+      message: 'Share your entire screen, window or a specific Chrome tab',
+      value: {
+        text: '',
+        subtext: '',
+        backgroundImage: 'camera-share.svg',
+        value: 'camera',
+        id: 'camera_source',
+        type: 'camera'
+      }
     },
     {
       title: 'Video Feed',
-      message:
-        'Share a feed of your in-built webcam and microphone. If you do not have a webcam, you can use a “virtual” webcam such as Streamlabs Desktop virtual camera'
+      message: 'Share a feed of your in-built webcam and microphone. If you do not have a webcam, you can use a “virtual” webcam such as Streamlabs Desktop virtual camera',
+      value: {
+        text: '',
+        subtext: '',
+        backgroundImage: 'screenshot-share.svg',
+        value: 'screenshare',
+        id: 'screenshare_source',
+        type: 'screenshare'
+      }
     }
   ]
 };
