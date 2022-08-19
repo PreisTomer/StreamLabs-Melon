@@ -1,11 +1,15 @@
 <template>
   <v-app>
+    <div class="app_container">
+    <side-menu :content="faker.sideMenu"></side-menu>
    <main-content :content="faker.mainContent"></main-content>
+   </div>
   </v-app>
 </template>
 
 <script>
 import MainContent from './components/mainContent';
+import SideMenu from './components/sideMenu';
 import faker from './services/dto/faker'
 
 export default {
@@ -13,6 +17,7 @@ export default {
 
   components: {
     MainContent,
+    SideMenu
   },
 
   data: () => ({
@@ -20,3 +25,10 @@ export default {
   }),
 };
 </script>
+
+<style lang="scss" scoped>
+
+.app_container{
+  display:flex;
+}
+</style>

@@ -6,7 +6,14 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     selectedMode: '',
-    sourceArr: [],
+    sourceArr: [{
+      text: 'Add media source',
+      subtext: 'Screenshare, Camera',
+      backgroundImage: '',
+      value: 'addMedia',
+      id: '',
+      type: 'default'
+    }],
     selectedSources:[],
   },
   getters: {
