@@ -1,39 +1,22 @@
 <template>
   <v-app>
-    <div id="app">
-      <img alt="StreamLabs logo" src="./assets/logo.png" />
-      <side-menu></side-menu>
-      <main-content :content="faker"></main-content>
-    </div>
+   <main-content :content="faker"></main-content>
   </v-app>
 </template>
 
 <script>
-import mainContent from "./components/mainContent.vue";
-import sideMenu from "./components/sideMenu.vue";
-import contentFaker from "./services/dto/faker"
+import MainContent from './components/mainContent';
+import faker from './services/dto/faker'
 
 export default {
-  name: "SteamLabs-Melon",
+  name: 'StreamLabs-Melon',
+
   components: {
-    mainContent,
-    sideMenu,
+    MainContent,
   },
-  data(){
-    return {
-      faker: contentFaker
-    }
-  }
+
+  data: () => ({
+    faker
+  }),
 };
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>

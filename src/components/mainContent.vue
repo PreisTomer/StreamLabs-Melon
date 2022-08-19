@@ -89,11 +89,16 @@ export default {
           break;
       }
     },
-    ...mapGetters([
-      'selectedMode',
-      'sourceArr',
-      'selectedSources',
-    ]),
+   
+      selectedMode(){
+        this.$store.getters.selectedMode
+      },
+      sourceArr(){
+        this.$store.getters.sourceArr
+      },
+      selectedSources(){
+        this.$store.getters.selectedSources
+      }
   },
 };
 </script>
