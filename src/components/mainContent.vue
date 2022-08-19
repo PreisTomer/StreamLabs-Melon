@@ -19,7 +19,7 @@
     <div v-if="selectedSources.length > 0" class="view_modes_container">
       <div
         class="mode_buttons"
-        v-for="viewMode in content.viewModes[this.getters.selectedMode]"
+        v-for="viewMode in content.viewModes[selectedMode]"
         :key="viewMode.id"
       >
         <v-btn
@@ -70,6 +70,7 @@ export default {
     return {
       showSplitScreen: false,
       selectedViewModeButton: ''
+ 
     };
   },
   methods:{
@@ -88,11 +89,11 @@ export default {
           break;
       }
     },
-    ...mapGetters({
-      selectedMode,
-      sourceArr,
-      selectedSources,
-    }),
+    ...mapGetters([
+      'selectedMode',
+      'sourceArr',
+      'selectedSources',
+    ]),
   },
 };
 </script>

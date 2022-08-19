@@ -45,6 +45,54 @@ const addNewMediaModal = {
 
 const mainContent = {
     actions:{
+        viewModes:{
+        webcamOnly: [
+            {
+                image: 'webcam-only_full-screen',
+                value: 'webcamFull',
+                id: 'webcam_full'
+            },
+            {
+                image: 'webcam-only_80-percent',
+                value: 'webcam80',
+                id: 'webcam_80'
+            },
+            {
+                image: 'webcam-only_60-percent',
+                value: 'webcam60',
+                id: 'webcam_60'
+            }
+
+        ],
+        screenShareOnly:           
+        [
+            {
+                image: 'screenshare-image-only',
+                value: 'screenShareOnly',
+                id: 'screenshare_only'
+            }
+        ],
+        webcamWithScreenshare:[
+   
+            {
+                image: 'webcam-33-percent_screenshare-66-percent',
+                value: 'webcam33Screenshare66',
+                id: 'webcam_33_screenShare66'
+            },
+            {
+                image: 'webcam-screenshare_webcam-25-percent-left-align',
+                value: 'webcam25ScreenshareLeftAlign',
+                id: 'webcam_25_screenShare_left_align'
+            },
+            {
+                image: 'webcam-screenshare_webcam-25-percent-right-align',
+                value: 'webcam25ScreenshareRightAlign',
+                id: 'webcam_25_screenShare_right_align'
+            }
+        
+        ]
+        
+    },
         footerButtons:[
             {
                 text: 'Chat',

@@ -7,7 +7,7 @@ export default new Vuex.Store({
   state: {
     selectedMode: '',
     sourceArr: [],
-    selectedSources:[]
+    selectedSources:[],
   },
   getters: {
     selectedMode: (state) => state.selectedMode,
