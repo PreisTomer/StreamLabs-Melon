@@ -8,16 +8,18 @@
       </v-btn>
     </div>
     <div v-else class="source_mode">
-      <v-btn
-        :class="['button_card', 'toggle_media_button']"
-        @click="toggleStream"
-      >
-        <span v-if="selectedSource !== content.id" class="show_stream"
-          >Show on stream</span
+      <div :class="['button_card', 'toggle_media_card']">
+        <v-btn
+          v-if="selectedSource !== content.id"
+          class="show_stream"
+          @click="toggleStream"
+          >Show on stream</v-btn
         >
         <span v-else class="hide_stream">Hide on stream</span>
-        <span class="type_indicator">My {{ content.type }} feed</span>
-      </v-btn>
+        <div class="gradient_container">
+          <span class="type_indicator">My {{ content.type }} feed</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -39,18 +41,30 @@ export default {
       selectedSource: "",
     };
   },
+  watch: {
+    content(newVal) {
+      this.selectedSource = newVal.type;
+    },
+  },
   computed: {
     buttonStyle() {
-      return {
-        "--background-image":
-          'url("../assets/' + this.content.backgroundImage + '")',
-      };
+      if (this.selectedSource) {
+        let imageUrl = require(`@/assets/${this.content.backgroundImage}`);
+        return {
+          "--background-image": "url(" + imageUrl + ")",
+        };
+      }
     },
   },
   methods: {
-    addMediaButtonClicked() {},
+    addMediaButtonClicked() {
+      this.$emit("addSource");
+    },
 
-    toggleStream() {},
+    toggleStream() {
+      this.$emit("toggleStream", this.content);
+
+    },
   },
 };
 </script>
@@ -66,8 +80,6 @@ export default {
     margin: 15px 0;
     text-transform: none;
 
-
-
     .plus_icon.v-icon::before {
       font-size: 32px;
     }
@@ -79,31 +91,34 @@ export default {
       padding-bottom: 8px;
       font-size: 14px;
       font-style: normal;
-        }
+    }
 
     .subtext {
       font-size: 12px;
       color: #757575;
-        }
+    }
 
     .v-btn__content {
       flex-direction: column;
       align-items: center;
       justify-content: center;
-            }
+    }
   }
 
   .source_mode {
-    .toggle_media_button {
+    .toggle_media_card {
+      border-radius: 4px;
+      position: relative;
       background-image: var(--background-image);
       background-size: cover;
-      text-align: center;
-      font-style: normal;
-      font-weight: 500;
-      font-size: 12px;
-      line-height: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       .show_stream {
+        line-height: 14px;
+        font-size: 12px;
+        text-transform: none;
         border-radius: 4px;
         width: 110px;
         height: 34px;
@@ -111,14 +126,37 @@ export default {
         background: #128079;
         align-items: center;
         padding: 10px 0;
-            }
+      }
       .hide_stream {
+        line-height: 14px;
+        font-size: 12px;
         border-radius: 4px;
         width: 110px;
         height: 34px;
-              color: #f34848;
+        color: #f34848;
         background: #ffffff;
         padding: 10px 0;
+      }
+      .gradient_container {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        height: 37px;
+        background: linear-gradient(
+          180deg,
+          rgba(196, 196, 196, 0) 0%,
+          #000000 100%
+        );
+        border-radius: 0 0 4px 4px;
+
+        .type_indicator {
+          position: absolute;
+          line-height: 14px;
+          font-size: 12px;
+          left: 4px;
+          bottom: 1px;
+          color: #ffffff;
+        }
       }
     }
   }

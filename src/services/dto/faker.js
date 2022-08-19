@@ -19,18 +19,18 @@ const sideMenu = {
     cameraSource: {
       text: '',
       subtext: '',
-      backgroundImage: 'camera-share.svg',
-      value: 'camera',
-      id: 'camera_source',
-      type: 'camera'
+      backgroundImage: 'screenshot-cam.svg',
+      value: 'screen',
+      id: 'screen_source',
+      type: 'screen'
     },
     screenShareSource: {
       text: '',
       subtext: '',
       backgroundImage: 'screenshot-share.svg',
-      value: 'screenshare',
-      id: 'screenshare_source',
-      type: 'screenshare'
+      value: 'camera',
+      id: 'camera_source',
+      type: 'camera'
     }
   }
 };
@@ -44,7 +44,7 @@ const addNewMediaModal = {
       value: {
         text: '',
         subtext: '',
-        backgroundImage: 'camera-share.svg',
+        backgroundImage: 'screenshot-cam.svg',
         value: 'camera',
         id: 'camera_source',
         type: 'camera'
@@ -59,16 +59,16 @@ const addNewMediaModal = {
         backgroundImage: 'screenshot-share.svg',
         value: 'screenshare',
         id: 'screenshare_source',
-        type: 'screenshare'
+        type: 'screen'
       }
     }
   ]
 };
 
 const mainContent = {
-  actions: {
+
     viewModes: {
-      webcamOnly: [
+      camera: [
         {
           image: 'webcam-only_full-screen',
           value: 'webcamFull',
@@ -85,7 +85,7 @@ const mainContent = {
           id: 'webcam_60'
         }
       ],
-      screenShareOnly: [
+      screen: [
         {
           image: 'screenshare-image-only',
           value: 'screenShareOnly',
@@ -129,7 +129,7 @@ const mainContent = {
         id: 'live_button'
       }
     ]
-  }
+  
 };
 
 export default {

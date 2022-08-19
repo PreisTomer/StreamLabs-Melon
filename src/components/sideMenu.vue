@@ -16,7 +16,7 @@
       v-for="(mediaSource, index) in sourceArr"
       :key="index"
     >
-      <media-source-button :content="mediaSource"></media-source-button>
+      <media-source-button :content="mediaSource" @addSource="openAddMediaModal" @toggleStream="showContent"></media-source-button>
     </div>
 
     <add-media-modal :show="showModal" :content="content.addNewMediaModal" @close="showModal = false" @mediaSelected="sourceSelected"></add-media-modal>
@@ -55,8 +55,10 @@ export default {
     },
     sourceSelected(obj){
         this.$store.dispatch('updateSourceArr', obj)
-        debugger
-        console.log(this.sourceArr)
+    },
+    showContent(stream){
+this.$store.dispatch('updateSelectedSources', stream)
+this.$store.dispatch('updateSelectedMode', stream.type)
     }
   },
   computed: {

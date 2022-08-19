@@ -6,6 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     selectedMode: '',
+    
+  
     sourceArr: [
       {
         text: 'Add media source',
@@ -38,8 +40,8 @@ export default new Vuex.Store({
       }
 
     },
-    updateSelectedSources(state, arr) {
-      state.selectedSources = arr;
+    updateSelectedSources(state, obj) {
+      state.selectedSources.push(obj);
     }
   },
   actions: {
@@ -49,7 +51,7 @@ export default new Vuex.Store({
     updateSourceArr(context, arr) {
       context.commit('updateSourceArr', arr);
     },
-    selectedSources(context, obj) {
+    updateSelectedSources(context, obj) {
       context.commit('updateSelectedSources', obj);
     }
   }
