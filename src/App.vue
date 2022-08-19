@@ -2,13 +2,13 @@
   <v-app>
     <div class="app_container">
       <side-menu :content="faker"></side-menu>
-      <main-content :content="faker.mainContent"></main-content>
+      <canvas-component :content="faker.mainContent"></canvas-component>
     </div>
   </v-app>
 </template>
 
 <script>
-import MainContent from "./components/mainContent";
+import CanvasComponent from "./components/canvas";
 import SideMenu from "./components/sideMenu";
 import faker from "./services/dto/faker";
 
@@ -16,7 +16,7 @@ export default {
   name: "StreamLabs-Melon",
 
   components: {
-    MainContent,
+    CanvasComponent,
     SideMenu,
   },
 

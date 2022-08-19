@@ -1,5 +1,5 @@
 <template>
-  <!-- MAIN CONTENT -->
+  <!-- SIDE BAR -->
   <div class="side_menu_container">
     
     <v-btn

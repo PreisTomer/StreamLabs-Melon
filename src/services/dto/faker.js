@@ -45,9 +45,9 @@ const addNewMediaModal = {
         text: '',
         subtext: '',
         backgroundImage: 'screenshot-cam.svg',
-        value: 'camera',
-        id: 'camera_source',
-        type: 'camera'
+        value: 'screen',
+        id: 'screenshare_source',
+        type: 'screen'
       }
     },
     {
@@ -57,9 +57,9 @@ const addNewMediaModal = {
         text: '',
         subtext: '',
         backgroundImage: 'screenshot-share.svg',
-        value: 'screenshare',
-        id: 'screenshare_source',
-        type: 'screen'
+        value: 'camera',
+        id: 'camera_source',
+        type: 'camera'
       }
     }
   ]
@@ -72,7 +72,7 @@ const mainContent = {
         {
           image: 'webcam-only_full-screen',
           value: 'webcamFull',
-          id: 'webcam_full'
+          id: 'webcam_full',
         },
         {
           image: 'webcam-only_80-percent',
