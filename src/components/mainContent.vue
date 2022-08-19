@@ -19,7 +19,7 @@
     <div v-if="selectedSources.length > 0" class="view_modes_container">
       <div
         class="mode_buttons"
-        v-for="viewMode in content.viewModes[selectedMode]"
+        v-for="viewMode in content.viewModes[getters.selectedMode]"
         :key="viewMode.id"
       >
         <v-btn
@@ -89,16 +89,11 @@ export default {
           break;
       }
     },
-   
-      selectedMode(){
-        this.$store.getters.selectedMode
-      },
-      sourceArr(){
-        this.$store.getters.sourceArr
-      },
-      selectedSources(){
-        this.$store.getters.selectedSources
-      }
+    ...mapGetters({
+      selectedMode,
+      sourceArr,
+      selectedSources,
+    }),
   },
 };
 </script>
