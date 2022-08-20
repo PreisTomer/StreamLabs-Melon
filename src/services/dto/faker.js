@@ -109,31 +109,33 @@ const mainContent = {
           id: 'webcam_25_screenShare_right_align'
         }
       ]
-    },
-    footerButtons: [
-      {
-        text: 'Chat',
-        value: 'chat',
-        id: 'chat_button'
-      },
-
-      {
-        text: 'Record',
-        value: 'record',
-        id: 'record_button'
-      },
-
-      {
-        text: 'Go Live',
-        value: 'live',
-        id: 'live_button'
-      }
-    ]
-  
+    }  
 };
+
+
+const footerButtons =  [
+  {
+    text: 'Chat',
+    value: 'chat',
+    id: 'chat_button'
+  },
+
+  {
+    text: 'Record',
+    value: 'record',
+    id: 'record_button'
+  },
+
+  {
+    text: 'Go Live',
+    value: 'live',
+    id: 'live_button'
+  }
+]
 
 export default {
   sideMenu,
   addNewMediaModal,
-  mainContent
+  mainContent,
+  footerButtons
 };

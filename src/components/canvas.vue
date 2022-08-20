@@ -55,17 +55,6 @@
         </v-btn>
       </div>
     </div>
-    <div class="action_buttons">
-      <div v-for="button in content.footerButtons" :key="button.id">
-        <v-btn
-          :class="['footer_button', { selected: button.id === 'live_button' }]"
-          :id="button.id"
-          depressed
-        >
-          {{ button.text }}
-        </v-btn>
-      </div>
-    </div>
   </div>
 </template>
 
@@ -129,15 +118,17 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+   
 
   .canvas {
+    margin: 32px;
     background: black;
     width: 800px;
     height: 450px;
-    margin: 32px;
     .single_screen {
       width:100%;
       height:100%;
+      
  
     }
   }
@@ -157,25 +148,6 @@ export default {
         height: 40px;
         width: 60px;
         margin: 10px 8px;
-      }
-    }
-  }
-  .action_buttons {
-    display: flex;
-    width: 506px;
-    justify-content: space-between;
-    border: 2px solid #e5eaed;
-    padding: 9px;
-
-    .footer_button {
-      width: 156px;
-      font-weight: 700;
-      line-height: 14px;
-      text-transform: none;
-
-      &.selected {
-        color: #ffffff;
-        background: #128079;
       }
     }
   }

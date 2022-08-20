@@ -18,6 +18,7 @@
     >
       <media-source-button :content="mediaSource" @addSource="openAddMediaModal" @toggleStream="showContent"></media-source-button>
     </div>
+    <div class="divider"></div>
 
     <add-media-modal :show="showModal" :content="content.addNewMediaModal" @close="showModal = false" @mediaSelected="sourceSelected"></add-media-modal>
   </div>
@@ -72,9 +73,10 @@ this.$store.dispatch('updateSelectedMode', stream.type)
 </script>
 <style lang="scss" scoped>
 .side_menu_container {
-  
+  height:100%;
   max-width: 202px;
   padding: 11px;
+  position:relative;
 
   .add_source_button {
     color: #ffffff;
@@ -85,7 +87,14 @@ font-size: 12px;
 
   }
 
-  .media_source_container {
+  .divider {
+    position:absolute;
+    width: 2px;
+    height: 100vh;
+
+    background:   #E5EAED;
+    right:0;
+    top:0;
   }
 }
 </style>
