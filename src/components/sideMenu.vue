@@ -2,13 +2,13 @@
   <!-- SIDE MENU -->
   <div class="side_menu_container">
     <!-- ADD SOURCE BUTTON -->
-    <v-btn class="add_source_button" :id="content.sideMenu.actions.addSource.id" :disabled="streamsForDisplay.length === 2" depressed @click="openAddMediaModal">
+    <v-btn class="add_source_button" :id="content.sideMenu.actions.addSource.id" :disabled="sourceArr.length === 2" depressed @click="openAddMediaModal">
       {{ content.sideMenu.actions.addSource.text }}
     </v-btn>
     <!-- SOURCE CARDS -->
     <div class="active_sources" v-for="(mediaSource, index) in sourceArr" :key="index">
     <!-- MEDIA-SOURCE COMPONENT AS BUTTON -->
-      <media-source-button :content="mediaSource" @addSource="openAddMediaModal" @showStream="loadCanvasContent" @hideStream="hideCanvasContent"></media-source-button>
+      <media-source-cards :content="mediaSource" @addSource="openAddMediaModal" @showStream="loadCanvasContent" @hideStream="hideCanvasContent"></media-source-cards>
     </div>
     <!-- SIMPLE DIVIDER -->
     <div class="divider"></div>
@@ -20,13 +20,13 @@
 
 <script>
 import { mapGetters } from "vuex";
-import MediaSourceButton from "./mediaSourceButton.vue";
+import MediaSourceCards from "./mediaSourceCards.vue";
 import AddMediaModal from "./addMediaModal.vue";
 
 export default {
   name: "SideMenu",
   components: {
-    MediaSourceButton,
+    MediaSourceCards,
     AddMediaModal,
   },
   props: {
@@ -57,9 +57,10 @@ export default {
       // UPDATE SELECTED MODE BASED ON ACTIVE SOURCES
       this.$store.dispatch("updateSelectedMode", stream.type);
     },
-    hideCanvasContent(stream) {
+    hideCanvasContent(id) {
       // REMOVE SOURCE FROM STORE ARRAY
-      this.$store.dispatch("removeSelectedSource", stream[0]);
+      this.$store.dispatch("removeSelectedSource", id);
+
     },
   },
   computed: {

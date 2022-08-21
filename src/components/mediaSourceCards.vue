@@ -9,13 +9,12 @@
         <span class="subtext">{{ content.subtext }}</span>
       </v-btn>
     </div>
-
     <!-- SOURCES ADDED TO SIDE BAR STATE -->
     <div v-else class="source_mode" :style="buttonStyle">
       <div :class="['button_card', 'toggle_media_card']">
         <!-- SHOW/HIDE STREAM BUTTONS WITHIN CARD -->
         <v-btn v-if="selectedSource !== content.id || streamsToShow.length === 0" class="show_stream" @click="showStream">Show on stream</v-btn>
-        <v-btn v-if="selectedSource === content.id && streamsToShow.length> 0" class="hide_stream" @click="hideStream">Hide on stream</v-btn>
+        <v-btn v-if="selectedSource === content.id && streamsToShow.length > 0" class="hide_stream" @click="hideStream">Hide on stream</v-btn>
         <!-- GRADIENT AND SMALL COPY AT BOTTOM OF CARD -->
         <div class="gradient_container">
           <span class="type_indicator">My {{ content.type }} feed</span>
@@ -29,7 +28,7 @@
 import { mapGetters } from "vuex";
 
 export default {
-  name: "MediaSourceButton",
+  name: "MediaSourceCards",
   props: {
     content: {
       type: Object,
@@ -87,14 +86,8 @@ export default {
     },
 
     hideStream() {
-      if (this.streamsToShow.length > 1) {
-        this.streamsToShow.filter((stream) => {
-          return stream !== this.content.id;
-        });
-      } else {
-        this.streamsToShow = [];
-      }
-      this.$emit("hideStream", this.streamsToShow);
+      this.$emit("hideStream", this.content.id);
+      this.streamsToShow = []
     },
   },
 };

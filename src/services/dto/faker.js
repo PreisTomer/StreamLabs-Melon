@@ -91,7 +91,7 @@ const mainContent = {
     ],
     screen: [
       {
-        image: 'screenshare-image-only',
+        image: 'screenshare-image-only_selected',
         value: 'screenShareOnly',
         id: 'screenshare_only'
       }

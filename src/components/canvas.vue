@@ -5,7 +5,7 @@
     <div class="canvas">
       <!-- SINGLE SOURCE FOR DISPLAY - MODE SELECTION CONTROLS DYNAMIC CLASSES FOR THE SOURCE -->
       <div :class="{ hundred_percent: this.selectedScreenType === 'webcam_full' || this.selectedScreenType === 'screenshare_only', eighty_percent: this.selectedScreenType === 'webcam_80', sixty_percent: this.selectedScreenType === 'webcam_60'}">
-        <img v-if="streamSourceImage && streamsForDisplay.length === 1" :src="streamSourceImage"/>
+        <img v-if="streamsForDisplay.length === 1" :src="streamSourceImage"/>
       </div>
 
       <!-- DUEAL SOURCE DISPLAY - MODE SELECTION CONTROLS DYNAMIC CLASSES FOR BOTH SOURCES -->
@@ -15,7 +15,6 @@
 
     <!-- MODE BUTTONS - CHANGE DYNAMICALLY ACCORDING TO VUEX STORE SOURCES -->
     <div v-if="streamsForDisplay.length > 0" class="view_modes_container">
-
       <!-- IF WEBCAM STREAM IS SELECTED -->
       <div v-if="selectedMode === 'camera'" class="mode_buttons">
         <v-btn class="mode_select_button" v-for="camOption in content.viewModes.camera" :key="camOption.id" :id="camOption.id" depressed @click="viewModeSelected(camOption.id)" icon>
@@ -26,7 +25,7 @@
       <!-- IF SCREENSHARE STREAM IS SELECTED -->
       <div v-if="selectedMode === 'screen'" class="mode_buttons">
         <v-btn :id="content.viewModes.screen[0].id" depressed @click="viewModeSelected(content.viewModes.screen[0].id)" icon>
-          <img class="mode_select_button" :src="require('@/assets/' + content.viewModes.screen[0].image + (content.viewModes.screen[0].id === selectedScreenType ? '_selected': '') +'.svg')"/>
+          <img class="mode_select_button" :src="require('@/assets/'+ content.viewModes.screen[0].image + '.svg')"/>
         </v-btn>
       </div>
 
@@ -65,20 +64,20 @@ export default {
   watch: {
     // THIS CANVAS COMPONENT CHANGES DYNAMICALLY ACCORDING TO VUEX VALUES SO WE MUST WATCH THEM
     "$store.state.selectedMode": function (newVal) {
+      console.log(newVal)
       if (newVal) {
         this.selectedScreenType = this.content.viewModes[newVal][0].id;
-      } else {
+      } else if(this.streamsForDisplay.length === 0) {
         this.selectedScreenType = {};
+      
       }
     },
 
     "$store.state.streamsForDisplay": function (newVal) {
+      // debugger
       if (newVal.length > 1) {
         // AUTOMATICALLY SELECT FIRST OPTION WHEN DUAL SOURCES ARE SELECTED
         this.selectedScreenType = "webcam-screenshare_webcam-25-percent-left-align";
-      } else if (newVal.length === 1) {
-        // AUTOMATICALLY SELECT FIRST OPTION WHEN ONE SOURCE IS SELECTED
-        this.selctedScreenType = newVal[0].id;
       }
     },
   },

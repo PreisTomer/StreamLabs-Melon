@@ -12,7 +12,7 @@ export default new Vuex.Store({
         subtext: 'Screenshare, Camera',
         backgroundImage: '',
         value: 'addMedia',
-        id: 'default_button',
+        id: 'default',
         type: 'default'
       }
     ],
@@ -57,11 +57,13 @@ export default new Vuex.Store({
     },
     removeSelectedSource(state, id) {
       // REMOVE SOURCE FROM ARRAY
-      let index = state.sideMenuSources.findIndex(function (source) {
+      let index = state.streamsForDisplay.findIndex(function (source) {
         return source.id === id;
       });
-
       state.streamsForDisplay.splice(index, 1);
+      if (state.streamsForDisplay.length > 0) {
+      state.selectedMode = state.streamsForDisplay[0].id
+      }
     }
   },
   actions: {
