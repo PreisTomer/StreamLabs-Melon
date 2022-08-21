@@ -1,3 +1,7 @@
+
+// THIS FILE IS MEANT TO SIMULATE BACK END GET RESPONSES
+// OR PROVIDE A SINGLE SOURCE OF TRUTH FOR DATA
+
 const sideMenu = {
   actions: {
     addSource: {
@@ -52,7 +56,8 @@ const addNewMediaModal = {
     },
     {
       title: 'Video Feed',
-      message: 'Share a feed of your in-built webcam and microphone. If you do not have a webcam, you can use a “virtual” webcam such as Streamlabs Desktop virtual camera',
+      message:
+        'Share a feed of your in-built webcam and microphone. If you do not have a webcam, you can use a “virtual” webcam such as Streamlabs Desktop virtual camera',
       value: {
         text: '',
         subtext: '',
@@ -66,54 +71,52 @@ const addNewMediaModal = {
 };
 
 const mainContent = {
-
-    viewModes: {
-      camera: [
-        {
-          image: 'webcam-only_full-screen',
-          value: 'webcamFull',
-          id: 'webcam_full',
-        },
-        {
-          image: 'webcam-only_80-percent',
-          value: 'webcam80',
-          id: 'webcam_80'
-        },
-        {
-          image: 'webcam-only_60-percent',
-          value: 'webcam60',
-          id: 'webcam_60'
-        }
-      ],
-      screen: [
-        {
-          image: 'screenshare-image-only',
-          value: 'screenShareOnly',
-          id: 'screenshare_only'
-        }
-      ],
-      webcamWithScreenshare: [
-        {
-          image: 'webcam-33-percent_screenshare-66-percent',
-          value: 'webcam33Screenshare66',
-          id: 'webcam_33_screenShare66'
-        },
-        {
-          image: 'webcam-screenshare_webcam-25-percent-left-align',
-          value: 'webcam25ScreenshareLeftAlign',
-          id: 'webcam_25_screenShare_left_align'
-        },
-        {
-          image: 'webcam-screenshare_webcam-25-percent-right-align',
-          value: 'webcam25ScreenshareRightAlign',
-          id: 'webcam_25_screenShare_right_align'
-        }
-      ]
-    }  
+  viewModes: {
+    camera: [
+      {
+        image: 'webcam-only_full-screen',
+        value: 'webcamFull',
+        id: 'webcam_full'
+      },
+      {
+        image: 'webcam-only_80-percent',
+        value: 'webcam80',
+        id: 'webcam_80'
+      },
+      {
+        image: 'webcam-only_60-percent',
+        value: 'webcam60',
+        id: 'webcam_60'
+      }
+    ],
+    screen: [
+      {
+        image: 'screenshare-image-only',
+        value: 'screenShareOnly',
+        id: 'screenshare_only'
+      }
+    ],
+    webcamWithScreenshare: [
+      {
+        image: 'webcam-screenshare_webcam-25-percent-left-align',
+        value: 'webcam25ScreenshareLeftAlign',
+        id: 'webcam-screenshare_webcam-25-percent-left-align'
+      },
+      {
+        image: 'webcam-screenshare_webcam-25-percent-right-align',
+        value: 'webcam25ScreenshareRightAlign',
+        id: 'webcam-screenshare_webcam-25-percent-right-align'
+      },
+      {
+        image: 'webcam-33-percent_screenshare-66-percent',
+        value: 'webcam33Screenshare66',
+        id: 'webcam-33-percent_screenshare-66-percent'
+      }
+    ]
+  }
 };
 
-
-const footerButtons =  [
+const footerButtons = [
   {
     text: 'Chat',
     value: 'chat',
@@ -131,7 +134,7 @@ const footerButtons =  [
     value: 'live',
     id: 'live_button'
   }
-]
+];
 
 export default {
   sideMenu,

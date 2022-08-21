@@ -6,7 +6,6 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     selectedMode: '',
-
     sourceArr: [
       {
         text: 'Add media source',
@@ -17,39 +16,52 @@ export default new Vuex.Store({
         type: 'default'
       }
     ],
-    selectedSources: []
+    sideMenuSources: [],
+    streamsForDisplay: []
   },
   getters: {
     getSelectedMode: (state) => state.selectedMode,
     getSourceArr: (state) => state.sourceArr,
-    getSelectedSources: (state) => state.selectedSources
+    getSideMenuSources: (state) => state.sideMenuSources,
+    getStreamsForDisplay: (state) => state.streamsForDisplay
   },
   mutations: {
     updateSelectedMode(state, mode) {
-      state.selectedMode = mode;
+      // HANDLE MODES (CAMERA OR SCREEN) IF DUAL STREAM CHANGE MODE TO HARDCODED
+      if (state.streamsForDisplay.length > 1) {
+        state.selectedMode = 'webcamWithScreenshare';
+      } else {
+        state.selectedMode = mode;
+      }
     },
     updateSourceArr(state, obj) {
+      // DEFAULT SOURCE OPTION APPEARS FIRST,
+      //  WHEN USER INTERACTS WE REMOVE THE DEFAULT 
+      // AND ADD THE NEW OR ADD  THE NEW IF DEFAULT IS NOT THERE
       if (state.sourceArr[0].type === 'default') {
         state.sourceArr = [];
         state.sourceArr.push(obj);
       } else {
-  
-        
-          state.sourceArr.push(obj);
-        
+        state.sourceArr.push(obj);
       }
     },
-    updateSelectedSources(state, obj) {
-      state.selectedSources.push(obj);
+    updateSideMenuSources(state, obj) {
+      // ADD SIDE MENU SOURCES TO ARRAY
+      state.sideMenuSources.push(obj);
     },
-    removeSelectedSource(state, arr) {
-      arr.forEach(element => {
-      state.selectedSources.findIndex(function (source, index) {
-          if(source.id === element.id){
-           state.selectedSources.splice(index, 1);
-          }
-        });
+    updateStreamsForDisplay(state, obj) {
+      // ADD CANVAS STREAM TO ARRAY
+      if (state.streamsForDisplay.length < 2) {
+        state.streamsForDisplay.push(obj);
+      }
+    },
+    removeSelectedSource(state, id) {
+      // REMOVE SOURCE FROM ARRAY
+      let index = state.sideMenuSources.findIndex(function (source) {
+        return source.id === id;
       });
+
+      state.streamsForDisplay.splice(index, 1);
     }
   },
   actions: {
@@ -59,11 +71,14 @@ export default new Vuex.Store({
     updateSourceArr(context, obj) {
       context.commit('updateSourceArr', obj);
     },
-    updateSelectedSources(context, obj) {
-      context.commit('updateSelectedSources', obj);
+    updateSideMenuSources(context, obj) {
+      context.commit('updateSideMenuSources', obj);
     },
-    removeSelectedSource(context, obj) {
-      context.commit('removeSelectedSource', obj);
+    updateStreamsForDisplay(context, obj) {
+      context.commit('updateStreamsForDisplay', obj);
+    },
+    removeSelectedSource(context, id) {
+      context.commit('removeSelectedSource', id);
     }
   }
 });

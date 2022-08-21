@@ -1,12 +1,18 @@
 <template>
+<!-- GLOBAL/VUETIFY APP CONTAINER -->
   <v-app class="app_container">
-    
+    <!-- SIDE MENU COMPONENT -->
     <side-menu class="side_menu" :content="faker"></side-menu>
+    <!-- WRAPPER FOR CANVAS AND FOOTER BUTTON COMPONENTS -->
     <div class="component_wrapper">
+      <!-- CANVAS -->
       <canvas-component class="canvas_component" :content="faker.mainContent"></canvas-component>
-  
-      <footer-buttons class="footer_buttons" :content="faker.footerButtons"></footer-buttons>
-</div>
+      <!-- FOOTER BUTTONS -->
+      <footer-buttons
+        class="footer_buttons"
+        :content="faker.footerButtons"
+      ></footer-buttons>
+    </div>
   </v-app>
 </template>
 
@@ -22,7 +28,7 @@ export default {
   components: {
     CanvasComponent,
     SideMenu,
-    footerButtons
+    footerButtons,
   },
 
   data: () => ({
@@ -32,45 +38,33 @@ export default {
 </script>
 
 <style lang="scss">
-.v-application--wrap{
+.v-application--wrap {
+  justify-content: center;
+  flex-direction: row;
 
-    justify-content: center;
-   flex-direction: row;
-
-
-  
-  .component_wrapper{
+  .component_wrapper {
     width: 100%;
-    position:relative;
-margin-bottom: 100px;
-    display:flex;
-   flex-direction: column;
+    position: relative;
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
 
-  
-  .canvas_component{
-    margin-top: 93px;
+    .canvas_component {
+      margin-top: 93px;
+    }
+
+    .side_menu {
+      margin-right: 45px;
+      height: 100%;
+    }
     
-  
-  }
-
-.side_menu{
-  margin-right: 45px;
-  height:100%;
-}
-.footer_buttons{
-  margin:20px auto;
-  // position:absolute;
-  // bottom:0;
-  // left: 0; 
-  // right: 0; 
-    max-width: 506px;
-
-
+    .footer_buttons {
+      margin: 20px auto;
+      max-width: 506px;
+    }
   }
 }
+.v-btn {
+  letter-spacing: unset;
 }
-  .v-btn{
-    letter-spacing: unset;
-  }
-  
 </style>

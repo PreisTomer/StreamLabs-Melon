@@ -1,34 +1,19 @@
 <template>
-  <!-- SIDE BAR -->
+  <!-- SIDE MENU -->
   <div class="side_menu_container">
-    <v-btn
-      class="add_source_button"
-      :id="content.sideMenu.actions.addSource.id"
-      depressed
-      @click="openAddMediaModal"
-    >
+    <!-- ADD SOURCE BUTTON -->
+    <v-btn class="add_source_button" :id="content.sideMenu.actions.addSource.id" :disabled="streamsForDisplay.length === 2" depressed @click="openAddMediaModal">
       {{ content.sideMenu.actions.addSource.text }}
     </v-btn>
-    <div
-      class="active_sources"
-      v-for="(mediaSource, index) in sourceArr"
-      :key="index"
-    >
-      <media-source-button
-        :content="mediaSource"
-        @addSource="openAddMediaModal"
-        @showStream="loadCanvasContent"
-        @hideStream="hideCanvasContent"
-      ></media-source-button>
+    <!-- SOURCE CARDS -->
+    <div class="active_sources" v-for="(mediaSource, index) in sourceArr" :key="index">
+    <!-- MEDIA-SOURCE COMPONENT AS BUTTON -->
+      <media-source-button :content="mediaSource" @addSource="openAddMediaModal" @showStream="loadCanvasContent" @hideStream="hideCanvasContent"></media-source-button>
     </div>
+    <!-- SIMPLE DIVIDER -->
     <div class="divider"></div>
-
-    <add-media-modal
-      :show="showModal"
-      :content="content.addNewMediaModal"
-      @close="showModal = false"
-      @mediaSelected="sourceSelected"
-    ></add-media-modal>
+    <!-- SELECT STREAM TYPE MODAL (OPENS WHEN ADDING SOURCE) -->
+    <add-media-modal :show="showModal" :content="content.addNewMediaModal" @close="showModal = false" @mediaSelected="sourceSelected"></add-media-modal>
   </div>
 </template>
 
@@ -63,26 +48,31 @@ export default {
       this.showModal = true;
     },
     sourceSelected(obj) {
+      // UPDATE VUEX STORE WITH SELECTED SOURCE
       this.$store.dispatch("updateSourceArr", obj);
     },
     loadCanvasContent(stream) {
-      this.$store.dispatch("updateSelectedSources", stream);
+      // SHOW SOURCE ON CANVAS
+      this.$store.dispatch("updateStreamsForDisplay", stream);
+      // UPDATE SELECTED MODE BASED ON ACTIVE SOURCES
       this.$store.dispatch("updateSelectedMode", stream.type);
     },
-    hideCanvasContent(stream){
-       this.$store.dispatch("removeSelectedSource", stream);
-      this.$store.dispatch("updateSelectedMode", '');
-    }
+    hideCanvasContent(stream) {
+      // REMOVE SOURCE FROM STORE ARRAY
+      this.$store.dispatch("removeSelectedSource", stream[0]);
+    },
   },
   computed: {
     ...mapGetters({
       selectedMode: "getSelectedMode",
       sourceArr: "getSourceArr",
-      selectedSources: "getSelectedSources",
+      sideMenuSources: "getSideMenuSources",
+      streamsForDisplay: "getStreamsForDisplay",
     }),
   },
 };
 </script>
+
 <style lang="scss" scoped>
 .side_menu_container {
   height: 100%;
@@ -94,6 +84,7 @@ export default {
     color: #ffffff;
     background: #128079;
     width: 100%;
+    // VUETIFY TRANSFORMS ALL BUTTON TEXT TO CAPITAL
     text-transform: none;
     font-size: 12px;
   }
@@ -102,7 +93,6 @@ export default {
     position: absolute;
     width: 2px;
     height: 100vh;
-
     background: #e5eaed;
     right: 0;
     top: 0;

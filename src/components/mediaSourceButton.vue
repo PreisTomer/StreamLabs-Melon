@@ -1,5 +1,7 @@
 <template>
-  <div class="button_container" >
+<!-- MEDIA SOURCE CARDS COMPONENT -->
+  <div class="button_container">
+    <!-- DEFAULT STATE (NO SELECTION) -->
     <div v-if="content.type === 'default'">
       <v-btn class="button_card" depressed @click="addMediaButtonClicked">
         <v-icon class="plus_icon" color="#128079">mdi-plus</v-icon>
@@ -7,20 +9,14 @@
         <span class="subtext">{{ content.subtext }}</span>
       </v-btn>
     </div>
+
+    <!-- SOURCES ADDED TO SIDE BAR STATE -->
     <div v-else class="source_mode" :style="buttonStyle">
       <div :class="['button_card', 'toggle_media_card']">
-        <v-btn
-          v-if="selectedSource !== content.id || streamsToShow.length === 0"
-          class="show_stream"
-          @click="showStream"
-          >Show on stream</v-btn
-        >
-        <v-btn
-          v-if="selectedSource === content.id && streamsToShow.length > 0"
-          class="hide_stream"
-          @click="hideStream"
-          >Hide on stream</v-btn
-        >
+        <!-- SHOW/HIDE STREAM BUTTONS WITHIN CARD -->
+        <v-btn v-if="selectedSource !== content.id || streamsToShow.length === 0" class="show_stream" @click="showStream">Show on stream</v-btn>
+        <v-btn v-if="selectedSource === content.id && streamsToShow.length> 0" class="hide_stream" @click="hideStream">Hide on stream</v-btn>
+        <!-- GRADIENT AND SMALL COPY AT BOTTOM OF CARD -->
         <div class="gradient_container">
           <span class="type_indicator">My {{ content.type }} feed</span>
         </div>
@@ -31,7 +27,6 @@
 
 <script>
 import { mapGetters } from "vuex";
-
 
 export default {
   name: "MediaSourceButton",
@@ -51,29 +46,37 @@ export default {
     };
   },
   watch: {
+    // WHEN ADDING SOURCE WE WANT THE TYPE TO BE UPDATED FOR DISPLAY PURPOSES
     content(newVal) {
       this.selectedSource = newVal.type;
     },
   },
-  created(){
-     this.selectedSource = this.content.type;
+
+  // TYPE IMPLEMENTATION WHEN FIRST ADDING SOURCE
+  created() {
+    this.selectedSource = this.content.type;
   },
+
   computed: {
     buttonStyle() {
+      // CARD BACKGROUND IMPLEMENTATION AS IMAGE BACKGROUND - BOUND AS STYLE PROPERTY IN TEMPLATE
       if (this.selectedSource) {
         let imageUrl = require(`@/assets/${this.content.backgroundImage}`);
-        return {
-          "--background-image": "url(" + imageUrl + ")",
+        return {"--background-image": "url(" + imageUrl + ")",
         };
       }
     },
-     ...mapGetters({
+
+    ...mapGetters({
       selectedMode: "getSelectedMode",
       sourceArr: "getSourceArr",
-      selectedSources: "getSelectedSources",
+      sideMenuSources: "getSideMenuSources",
+      streamsForDisplay: "getStreamsForDisplay",
     }),
   },
+
   methods: {
+    // SINCE THIS IS A CHILD COMPONENT WE EMIT EVENTS TO PARENT WHEN USER INTERACTS
     addMediaButtonClicked() {
       this.$emit("addSource");
     },
@@ -82,15 +85,16 @@ export default {
       this.$emit("showStream", this.content);
       this.streamsToShow.push(this.content.id);
     },
+
     hideStream() {
-      if(this.streamsToShow.length>1){
-     this.streamsToShow.filter((stream) => {
-        return stream !== this.content.id;
-      });
+      if (this.streamsToShow.length > 1) {
+        this.streamsToShow.filter((stream) => {
+          return stream !== this.content.id;
+        });
       } else {
-        this.streamsToShow = []
+        this.streamsToShow = [];
       }
-      this.$emit("hideStream", this.sourceArr);
+      this.$emit("hideStream", this.streamsToShow);
     },
   },
 };
@@ -101,6 +105,7 @@ export default {
   color: #000000;
 
   .button_card {
+    // UNFORTUNATELY OVERRIDING CLASSES IN VUETIFY SOMETIMES REQUIRES THE USE OF !important
     width: 179px !important;
     height: 100px !important;
     padding: 18px 5px !important;
@@ -161,10 +166,10 @@ export default {
         border-radius: 4px;
         width: 110px;
         height: 34px;
-        background: #f34848;
+        background: #ffffff;
         text-align: center;
         align-items: center;
-        color: #ffffff;
+        color: #f34848;
         padding: 10px 0;
       }
       .gradient_container {
@@ -172,11 +177,7 @@ export default {
         position: absolute;
         bottom: 0;
         height: 37px;
-        background: linear-gradient(
-          180deg,
-          rgba(196, 196, 196, 0) 0%,
-          #000000 100%
-        );
+        background: linear-gradient( 180deg, rgba(196, 196, 196, 0) 0%, #000000 100%);
         border-radius: 0 0 4px 4px;
 
         .type_indicator {
