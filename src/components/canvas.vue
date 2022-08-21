@@ -4,6 +4,7 @@
     <!-- CANVAS -->
     <div class="canvas">
       <!-- SINGLE SCREEN IMAGE -->
+      <!-- <div style="color:red;">{{sourceArr}}</div> -->
       <div
         :class="{
           hundred_percent:
@@ -14,12 +15,12 @@
         }"
       >
         <img
-          v-if="sourceArr.length === 1 && streamSourceImage"
+          v-if="streamSourceImage"
           :src="streamSourceImage"
         />
       </div>
       <!-- SPLIT SCREEN IMAGES -->
-      <div v-if="sourceArr.length > 1" class="split_screen">
+      <div v-if="selectedSources.length > 1" class="split_screen">
         <div></div>
         <div></div>
       </div>
@@ -94,7 +95,11 @@ export default {
   },
   watch: {
     "$store.state.selectedMode": function (newVal) {
+      if(newVal){
       this.selectedScreenType = this.content.viewModes[newVal][0].id;
+      } else {
+        this.selectedScreenType = {}
+      }
     },
   },
   methods: {
@@ -117,6 +122,7 @@ export default {
           return require("@/assets/webcam-image.png");
 
         case "screen":
+          debugger
           return require("@/assets/screenshare-image.png");
 
         default:
@@ -144,14 +150,15 @@ export default {
       & img {
         min-width: 100%;
         min-height: 100%;
-        aspect-ratio: 16 / 9;
-        position: absolute;
+         position: absolute;
         top: 0;
         left: 0;
         bottom: 0;
         right: 0;
-        display: inline-block;
-        
+         display:block;
+    margin:auto;
+        aspect-ratio: 16 / 9;
+
       }
     }
     .eighty_percent {

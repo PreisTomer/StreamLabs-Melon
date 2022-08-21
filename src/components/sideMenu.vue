@@ -71,7 +71,6 @@ export default {
     },
     hideCanvasContent(stream){
        this.$store.dispatch("removeSelectedSource", stream);
-       this.$store.dispatch("updateSourceArr", stream);
       this.$store.dispatch("updateSelectedMode", '');
     }
   },

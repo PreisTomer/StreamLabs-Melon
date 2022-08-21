@@ -42,11 +42,14 @@ export default new Vuex.Store({
     updateSelectedSources(state, obj) {
       state.selectedSources.push(obj);
     },
-    removeSelectedSource(state, obj) {
-      let index = state.selectedSources.findIndex(function (source) {
-        return source.id === obj.id;
+    removeSelectedSource(state, arr) {
+      arr.forEach(element => {
+      state.selectedSources.findIndex(function (source, index) {
+          if(source.id === element.id){
+           state.selectedSources.splice(index, 1);
+          }
+        });
       });
-      if (index !== -1) state.selectedSources.splice(index, 1);
     }
   },
   actions: {

@@ -1,5 +1,5 @@
 <template>
-  <div class="button_container" :style="buttonStyle">
+  <div class="button_container" >
     <div v-if="content.type === 'default'">
       <v-btn class="button_card" depressed @click="addMediaButtonClicked">
         <v-icon class="plus_icon" color="#128079">mdi-plus</v-icon>
@@ -7,7 +7,7 @@
         <span class="subtext">{{ content.subtext }}</span>
       </v-btn>
     </div>
-    <div v-else class="source_mode">
+    <div v-else class="source_mode" :style="buttonStyle">
       <div :class="['button_card', 'toggle_media_card']">
         <v-btn
           v-if="selectedSource !== content.id || streamsToShow.length === 0"
@@ -30,6 +30,9 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
+
 export default {
   name: "MediaSourceButton",
   props: {
@@ -52,6 +55,9 @@ export default {
       this.selectedSource = newVal.type;
     },
   },
+  created(){
+     this.selectedSource = this.content.type;
+  },
   computed: {
     buttonStyle() {
       if (this.selectedSource) {
@@ -61,6 +67,11 @@ export default {
         };
       }
     },
+     ...mapGetters({
+      selectedMode: "getSelectedMode",
+      sourceArr: "getSourceArr",
+      selectedSources: "getSelectedSources",
+    }),
   },
   methods: {
     addMediaButtonClicked() {
@@ -73,13 +84,13 @@ export default {
     },
     hideStream() {
       if(this.streamsToShow.length>1){
-      this.streamsToShow.filter((stream) => {
+     this.streamsToShow.filter((stream) => {
         return stream !== this.content.id;
       });
       } else {
         this.streamsToShow = []
       }
-      this.$emit("hideStream", this.content);
+      this.$emit("hideStream", this.sourceArr);
     },
   },
 };
