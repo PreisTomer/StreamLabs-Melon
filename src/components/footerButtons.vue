@@ -17,10 +17,10 @@ export default {
 name: 'FooterButtons',
  props: {
     content: {
-      type: Object,
+      type: Array,
       required: false,
       default: () => {
-        return {};
+        return [];
       },
     },
   },
@@ -31,7 +31,7 @@ name: 'FooterButtons',
 <style lang="scss" scoped>
 .footer_buttons_container {
     display: flex;
-    width: 506px;
+    min-width: 506px;
     justify-content: space-between;
     border: 2px solid #e5eaed;
     padding: 9px;

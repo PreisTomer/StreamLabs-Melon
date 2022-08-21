@@ -10,12 +10,17 @@
     <div v-else class="source_mode">
       <div :class="['button_card', 'toggle_media_card']">
         <v-btn
-          v-if="selectedSource !== content.id"
+          v-if="selectedSource !== content.id || streamsToShow.length === 0"
           class="show_stream"
-          @click="toggleStream"
+          @click="showStream"
           >Show on stream</v-btn
         >
-        <span v-else class="hide_stream">Hide on stream</span>
+        <v-btn
+          v-if="selectedSource === content.id && streamsToShow.length > 0"
+          class="hide_stream"
+          @click="hideStream"
+          >Hide on stream</v-btn
+        >
         <div class="gradient_container">
           <span class="type_indicator">My {{ content.type }} feed</span>
         </div>
@@ -39,6 +44,7 @@ export default {
   data() {
     return {
       selectedSource: "",
+      streamsToShow: [],
     };
   },
   watch: {
@@ -61,9 +67,19 @@ export default {
       this.$emit("addSource");
     },
 
-    toggleStream() {
-      this.$emit("toggleStream", this.content);
-
+    showStream() {
+      this.$emit("showStream", this.content);
+      this.streamsToShow.push(this.content.id);
+    },
+    hideStream() {
+      if(this.streamsToShow.length>1){
+      this.streamsToShow.filter((stream) => {
+        return stream !== this.content.id;
+      });
+      } else {
+        this.streamsToShow = []
+      }
+      this.$emit("hideStream", this.content);
     },
   },
 };
@@ -130,11 +146,14 @@ export default {
       .hide_stream {
         line-height: 14px;
         font-size: 12px;
+        text-transform: none;
         border-radius: 4px;
         width: 110px;
         height: 34px;
-        color: #f34848;
-        background: #ffffff;
+        background: #f34848;
+        text-align: center;
+        align-items: center;
+        color: #ffffff;
         padding: 10px 0;
       }
       .gradient_container {

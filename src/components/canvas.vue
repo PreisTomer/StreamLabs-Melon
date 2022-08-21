@@ -2,9 +2,22 @@
   <!-- MAIN CONTENT -->
   <div class="main_content_container">
     <!-- CANVAS -->
-    <div class="canvas" >
+    <div class="canvas">
       <!-- SINGLE SCREEN IMAGE -->
-      <img v-if="sourceArr.length > 0" class="single_screen" :src="streamSourceImage" />
+      <div
+        :class="{
+          hundred_percent:
+            this.selectedScreenType === 'webcam_full' ||
+            this.selectedScreenType === 'screenshare_only',
+          eighty_percent: this.selectedScreenType === 'webcam_80',
+          sixty_percent: this.selectedScreenType === 'webcam_60',
+        }"
+      >
+        <img
+          v-if="sourceArr.length === 1 && streamSourceImage"
+          :src="streamSourceImage"
+        />
+      </div>
       <!-- SPLIT SCREEN IMAGES -->
       <div v-if="sourceArr.length > 1" class="split_screen">
         <div></div>
@@ -28,7 +41,7 @@
             :src="
               require('@/assets/' +
                 camOption.image +
-                (camOption.id === selectedScreenType.id ? '_selected' : '') +
+                isSelectedModeButton(camOption.id) +
                 '.svg')
             "
           />
@@ -46,7 +59,7 @@
             :src="
               require('@/assets/' +
                 content.viewModes.screen[0].image +
-                (content.viewModes.screen[0].id === selectedScreenType.id
+                (content.viewModes.screen[0].id === selectedScreenType
                   ? '_selected'
                   : '') +
                 '.svg')
@@ -76,18 +89,20 @@ export default {
   data() {
     return {
       showSplitScreen: false,
-      selectedScreenType: {},
-      activeStream: "",
+      selectedScreenType: "",
     };
   },
   watch: {
     "$store.state.selectedMode": function (newVal) {
-      this.selectedScreenType = this.content.viewModes[newVal][0];
+      this.selectedScreenType = this.content.viewModes[newVal][0].id;
     },
   },
   methods: {
     viewModeSelected(id) {
       this.selectedScreenType = id;
+    },
+    isSelectedModeButton(id) {
+      return id === this.selectedScreenType ? "_selected" : "";
     },
   },
   computed: {
@@ -96,58 +111,95 @@ export default {
       sourceArr: "getSourceArr",
       selectedSources: "getSelectedSources",
     }),
-    streamSourceImage(){
+    streamSourceImage() {
       switch (this.selectedMode) {
-        case 'camera':
-           return require('@/assets/webcam-image.png')
-      
-        case 'screen':
-           return require('@/assets/screenshare-image.png')
-      
+        case "camera":
+          return require("@/assets/webcam-image.png");
+
+        case "screen":
+          return require("@/assets/screenshare-image.png");
+
         default:
-          break;
+          return "";
       }
-      
-    }
+    },
   },
 };
 </script>
 <style lang="scss" scoped>
 .main_content_container {
-  font-size: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-   
+  min-height: 450px;
+  min-width: 800px;
+  margin: 32px 32px 16px;
+  max-width: 1500px;
 
   .canvas {
-    margin: 32px;
     background: black;
-    width: 800px;
-    height: 450px;
-    .single_screen {
-      width:100%;
-      height:100%;
-      
- 
+    aspect-ratio: 16 / 9;
+    position: relative;
+    min-width: 800px;
+
+
+    .hundred_percent {
+      & img {
+        min-width: 100%;
+        min-height: 100%;
+        aspect-ratio: 16 / 9;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+        display: inline-block;
+        
+      }
+    }
+    .eighty_percent {
+      & img {
+        width: 80%;
+        height: 80%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+         display:block;
+    margin:auto;
+        aspect-ratio: 16 / 9;
+      }
+    }
+    .sixty_percent {
+      & img {
+        width: 60%;
+        height: 60%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        right: 0;
+         display:block;
+    margin:auto;
+        aspect-ratio: 16 / 9;
+      }
     }
   }
   .view_modes_container {
-    min-width: fit-content;
+    margin: 12px 0;
+    display: flex;
+    justify-content: center;
 
     .mode_buttons {
       display: flex;
-
       align-content: center;
       justify-content: space-between;
-      padding: 9px;
+      padding: 0 9px;
 
       .mode_select_button,
       img {
         border-radius: 7px;
         height: 40px;
         width: 60px;
-        margin: 10px 8px;
+        margin: 0 8px;
       }
     }
   }

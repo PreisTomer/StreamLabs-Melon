@@ -6,8 +6,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     selectedMode: '',
-    
-  
+
     sourceArr: [
       {
         text: 'Add media source',
@@ -34,25 +33,34 @@ export default new Vuex.Store({
         state.sourceArr = [];
         state.sourceArr.push(obj);
       } else {
-        if (!state.sourceArr.length > 1) {
+  
+        
           state.sourceArr.push(obj);
-        }
+        
       }
-
     },
     updateSelectedSources(state, obj) {
       state.selectedSources.push(obj);
+    },
+    removeSelectedSource(state, obj) {
+      let index = state.selectedSources.findIndex(function (source) {
+        return source.id === obj.id;
+      });
+      if (index !== -1) state.selectedSources.splice(index, 1);
     }
   },
   actions: {
     updateSelectedMode(context, mode) {
       context.commit('updateSelectedMode', mode);
     },
-    updateSourceArr(context, arr) {
-      context.commit('updateSourceArr', arr);
+    updateSourceArr(context, obj) {
+      context.commit('updateSourceArr', obj);
     },
     updateSelectedSources(context, obj) {
       context.commit('updateSelectedSources', obj);
+    },
+    removeSelectedSource(context, obj) {
+      context.commit('removeSelectedSource', obj);
     }
   }
 });

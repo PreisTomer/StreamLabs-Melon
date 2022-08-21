@@ -1,7 +1,6 @@
 <template>
   <!-- SIDE BAR -->
   <div class="side_menu_container">
-    
     <v-btn
       class="add_source_button"
       :id="content.sideMenu.actions.addSource.id"
@@ -10,17 +9,26 @@
     >
       {{ content.sideMenu.actions.addSource.text }}
     </v-btn>
-
     <div
       class="active_sources"
       v-for="(mediaSource, index) in sourceArr"
       :key="index"
     >
-      <media-source-button :content="mediaSource" @addSource="openAddMediaModal" @toggleStream="showContent"></media-source-button>
+      <media-source-button
+        :content="mediaSource"
+        @addSource="openAddMediaModal"
+        @showStream="loadCanvasContent"
+        @hideStream="hideCanvasContent"
+      ></media-source-button>
     </div>
     <div class="divider"></div>
 
-    <add-media-modal :show="showModal" :content="content.addNewMediaModal" @close="showModal = false" @mediaSelected="sourceSelected"></add-media-modal>
+    <add-media-modal
+      :show="showModal"
+      :content="content.addNewMediaModal"
+      @close="showModal = false"
+      @mediaSelected="sourceSelected"
+    ></add-media-modal>
   </div>
 </template>
 
@@ -34,7 +42,7 @@ export default {
   name: "SideMenu",
   components: {
     MediaSourceButton,
-    AddMediaModal
+    AddMediaModal,
   },
   props: {
     content: {
@@ -47,19 +55,24 @@ export default {
   },
   data() {
     return {
-        showModal:false
+      showModal: false,
     };
   },
   methods: {
     openAddMediaModal() {
-        this.showModal =  true
+      this.showModal = true;
     },
-    sourceSelected(obj){
-        this.$store.dispatch('updateSourceArr', obj)
+    sourceSelected(obj) {
+      this.$store.dispatch("updateSourceArr", obj);
     },
-    showContent(stream){
-this.$store.dispatch('updateSelectedSources', stream)
-this.$store.dispatch('updateSelectedMode', stream.type)
+    loadCanvasContent(stream) {
+      this.$store.dispatch("updateSelectedSources", stream);
+      this.$store.dispatch("updateSelectedMode", stream.type);
+    },
+    hideCanvasContent(stream){
+       this.$store.dispatch("removeSelectedSource", stream);
+       this.$store.dispatch("updateSourceArr", stream);
+      this.$store.dispatch("updateSelectedMode", '');
     }
   },
   computed: {
@@ -73,28 +86,27 @@ this.$store.dispatch('updateSelectedMode', stream.type)
 </script>
 <style lang="scss" scoped>
 .side_menu_container {
-  height:100%;
+  height: 100%;
   max-width: 202px;
   padding: 11px;
-  position:relative;
+  position: relative;
 
   .add_source_button {
     color: #ffffff;
     background: #128079;
-    width:100%;
+    width: 100%;
     text-transform: none;
-font-size: 12px;
-
+    font-size: 12px;
   }
 
   .divider {
-    position:absolute;
+    position: absolute;
     width: 2px;
     height: 100vh;
 
-    background:   #E5EAED;
-    right:0;
-    top:0;
+    background: #e5eaed;
+    right: 0;
+    top: 0;
   }
 }
 </style>

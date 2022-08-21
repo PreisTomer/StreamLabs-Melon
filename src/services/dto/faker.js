@@ -13,7 +13,7 @@ const sideMenu = {
       subtext: 'Screenshare, Camera',
       backgroundImage: '',
       value: 'addMedia',
-      id: 'default_button',
+      id: 'default',
       type: 'default'
     },
     cameraSource: {
@@ -21,7 +21,7 @@ const sideMenu = {
       subtext: '',
       backgroundImage: 'screenshot-cam.svg',
       value: 'screen',
-      id: 'screen_source',
+      id: 'screen',
       type: 'screen'
     },
     screenShareSource: {
@@ -29,7 +29,7 @@ const sideMenu = {
       subtext: '',
       backgroundImage: 'screenshot-share.svg',
       value: 'camera',
-      id: 'camera_source',
+      id: 'camera',
       type: 'camera'
     }
   }
@@ -46,7 +46,7 @@ const addNewMediaModal = {
         subtext: '',
         backgroundImage: 'screenshot-cam.svg',
         value: 'screen',
-        id: 'screenshare_source',
+        id: 'screen',
         type: 'screen'
       }
     },
@@ -58,7 +58,7 @@ const addNewMediaModal = {
         subtext: '',
         backgroundImage: 'screenshot-share.svg',
         value: 'camera',
-        id: 'camera_source',
+        id: 'camera',
         type: 'camera'
       }
     }
