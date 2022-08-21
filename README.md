@@ -1,8 +1,8 @@
-# StreamLabs
+# StreamLabs-Melon
+ ------------------
  
-# Build Setup:
-
-# install dependencies
+ 
+#install dependencies:
 npm install
 
 # serve with hot reload at localhost:8080
